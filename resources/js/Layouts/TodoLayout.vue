@@ -5,7 +5,6 @@
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex justify-between h-16">
                     <div class="flex">
-
                     </div>
 
                     <!-- Settings Dropdown -->
@@ -106,7 +105,7 @@
             <!-- Responsive Navigation Menu -->
             <div :class="{'block': showingNavigationDropdown, 'hidden': ! showingNavigationDropdown}" class="sm:hidden">
                 <div class="pt-2 pb-3 space-y-1">
-                    <jet-responsive-nav-link :href="route('dashboard')" :active="route().current('dashboard')">
+                    <jet-responsive-nav-link href="/" active="/">
                         Dashboard
                     </jet-responsive-nav-link>
                 </div>
@@ -213,6 +212,7 @@
             JetNavLink,
             JetResponsiveNavLink,
         },
+
 
         data() {
             return {

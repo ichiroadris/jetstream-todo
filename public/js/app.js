@@ -3179,7 +3179,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 
 
@@ -3580,10 +3579,36 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     TodoLayout: _Layouts_TodoLayout__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  props: ["todos"],
+  created: function created() {
+    console.log(this.todos);
   }
 });
 
@@ -26144,12 +26169,7 @@ var render = function() {
               [
                 _c(
                   "jet-responsive-nav-link",
-                  {
-                    attrs: {
-                      href: _vm.route("dashboard"),
-                      active: _vm.route().current("dashboard")
-                    }
-                  },
+                  { attrs: { href: "/", active: "/" } },
                   [_vm._v("\n                    Dashboard\n                ")]
                 )
               ],
@@ -27099,21 +27119,37 @@ var render = function() {
   return _c("todo-layout", [
     _c("div", [
       _c("div", { staticClass: "py-2" }, [
-        _c("div", { staticClass: "max-w-6xl mx-auto sm:px-6 lg:px-8" }, [
+        _c("div", { staticClass: "max-w-7xl mx-auto sm:px-6 lg:px-8" }, [
           _c(
             "div",
             {
               staticClass:
-                "bg-white overflow-hidden shadow-xl p-4 border sm:rounded-md"
+                "bg-white overflow-hidden shadow-xl p-4 border sm:rounded-md "
             },
             [
-              _c("div", { staticClass: "flex justify-center" }, [
-                _c("h1", { staticClass: "font-extrabold text-3xl" }, [
-                  _vm._v("Todos")
-                ])
-              ]),
+              _c(
+                "div",
+                { staticClass: "flex justify-center" },
+                [
+                  _c("h1", { staticClass: "font-extrabold text-3xl" }, [
+                    _vm._v("Todos")
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "inertia-link",
+                    {
+                      attrs: {
+                        method: "post",
+                        href: "todo/create/" + _vm.$page.user.id
+                      }
+                    },
+                    [_vm._v("Test")]
+                  )
+                ],
+                1
+              ),
               _vm._v(" "),
-              _c("div", { staticClass: "flex mt-4" }, [
+              _c("div", { staticClass: "flex my-4" }, [
                 _c("input", {
                   staticClass:
                     "shadow appearance-none border rounded w-full py-2 px-3 mr-4 text-grey-darker",
@@ -27132,8 +27168,49 @@ var render = function() {
                     )
                   ]
                 )
-              ])
-            ]
+              ]),
+              _vm._v(" "),
+              _vm._l(_vm.todos, function(todo) {
+                return _c("div", { key: todo.id }, [
+                  _c("div", { staticClass: "flex mb-4 items-center" }, [
+                    _c("p", { staticClass: "w-full text-grey-900" }, [
+                      _vm._v(
+                        "\n                                " +
+                          _vm._s(todo.title) +
+                          "\n                            "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass:
+                          "flex-no-shrink p-2 ml-4 mr-2 border-2 rounded hover:text-white text-green-500 border-green-500 hover:bg-green-500"
+                      },
+                      [
+                        _vm._v(
+                          "\n                                Done\n                            "
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass:
+                          "flex-no-shrink p-2 ml-2 border-2 rounded text-red-500 border-red-500 hover:text-white hover:bg-red-500"
+                      },
+                      [
+                        _vm._v(
+                          "\n                                Remove\n                            "
+                        )
+                      ]
+                    )
+                  ])
+                ])
+              })
+            ],
+            2
           )
         ])
       ])

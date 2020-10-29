@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\TodoController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,6 +18,8 @@ use Illuminate\Support\Facades\Route;
 //     return Inertia\Inertia::render('Dashboard');
 // })->name('dashboard');
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/', function () {
-    return Inertia\Inertia::render('Main');
-})->name('dashboard');
+Route::middleware(['auth:sanctum', 'verified'])->get('/', [TodoController::class, 'index']);
+
+// Route::get('/', [TodoController::class, 'index']);
+
+Route::post('/todo/create/{userid}', [TodoController::class, 'create']);
