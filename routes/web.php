@@ -23,3 +23,5 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/', [TodoController::class
 // Route::get('/', [TodoController::class, 'index']);
 
 Route::post('/todo/create/{userid}', [TodoController::class, 'create']);
+
+Route::post('/todo/delete', [TodoController::class, 'destroy']);

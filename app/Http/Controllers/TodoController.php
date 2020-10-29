@@ -19,7 +19,6 @@ class TodoController extends Controller
     }
 
     public function create(Request $req, $userid) {
-        $user = User::findOrFail($userid);
         Todo::create(
             [
                 'title' => $req->title,
@@ -27,6 +26,13 @@ class TodoController extends Controller
                 'user_id' => $userid
             ]
         );
+
+        return back();
+    }
+
+    public function destroy(Request $req) {
+        $todo = Todo::find($req->todoid);
+        $todo->delete();
 
         return back();
     }

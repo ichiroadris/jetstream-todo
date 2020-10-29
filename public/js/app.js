@@ -3617,11 +3617,18 @@ __webpack_require__.r(__webpack_exports__);
       }
     };
   },
-  created: function created() {// console.log(this.$page.user.id);
-  },
+  // created() {
+  //     // console.log(this.$page.user.id);
+  // },
   methods: {
-    submit: function submit() {
+    add: function add() {
       this.$inertia.post('/todo/create/' + this.$page.user.id, this.form);
+    },
+    remove: function remove(todoid) {
+      console.log(todoid);
+      this.$inertia.post('/todo/delete', {
+        todoid: todoid
+      });
     }
   }
 });
@@ -27153,7 +27160,7 @@ var render = function() {
                   on: {
                     submit: function($event) {
                       $event.preventDefault()
-                      return _vm.submit($event)
+                      return _vm.add($event)
                     }
                   }
                 },
@@ -27226,7 +27233,12 @@ var render = function() {
                       "button",
                       {
                         staticClass:
-                          "flex-no-shrink p-2 ml-2 border-2 rounded text-red-500 border-red-500 hover:text-white hover:bg-red-500"
+                          "flex-no-shrink p-2 ml-2 border-2 rounded text-red-500 border-red-500 hover:text-white hover:bg-red-500",
+                        on: {
+                          click: function($event) {
+                            return _vm.remove(todo.id)
+                          }
+                        }
                       },
                       [
                         _vm._v(

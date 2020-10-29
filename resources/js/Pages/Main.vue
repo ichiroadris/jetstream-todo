@@ -14,7 +14,7 @@
                                 >Test</inertia-link
                             > -->
                         </div>
-                        <form @submit.prevent="submit">
+                        <form @submit.prevent="add">
                             <div class="flex my-4">
                                 <input
                                     class="shadow appearance-none border rounded w-full py-2 px-3 mr-4 text-grey-darker"
@@ -38,7 +38,7 @@
                                 >
                                     Done
                                 </button>
-                                <button
+                                <button @click="remove(todo.id)"
                                     class="flex-no-shrink p-2 ml-2 border-2 rounded text-red-500 border-red-500 hover:text-white hover:bg-red-500"
                                 >
                                     Remove
@@ -67,12 +67,18 @@ export default {
             }
         };
     },
-    created() {
-        // console.log(this.$page.user.id);
-    },
+    // created() {
+    //     // console.log(this.$page.user.id);
+    // },
     methods: {
-        submit() {
+        add() {
             this.$inertia.post('/todo/create/'+this.$page.user.id, this.form);
+        },
+        remove(todoid) {
+            console.log(todoid);
+            this.$inertia.post('/todo/delete', {
+                todoid: todoid
+            })
         }
     }
 };
