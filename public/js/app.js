@@ -3601,14 +3601,28 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     TodoLayout: _Layouts_TodoLayout__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   props: ["todos"],
-  created: function created() {
-    console.log(this.todos);
+  data: function data() {
+    return {
+      form: {
+        title: null
+      }
+    };
+  },
+  created: function created() {// console.log(this.$page.user.id);
+  },
+  methods: {
+    submit: function submit() {
+      this.$inertia.post('/todo/create/' + this.$page.user.id, this.form);
+    }
   }
 });
 
@@ -27127,48 +27141,62 @@ var render = function() {
                 "bg-white overflow-hidden shadow-xl p-4 border sm:rounded-md "
             },
             [
-              _c(
-                "div",
-                { staticClass: "flex justify-center" },
-                [
-                  _c("h1", { staticClass: "font-extrabold text-3xl" }, [
-                    _vm._v("Todos")
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "inertia-link",
-                    {
-                      attrs: {
-                        method: "post",
-                        href: "todo/create/" + _vm.$page.user.id
-                      }
-                    },
-                    [_vm._v("Test")]
-                  )
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c("div", { staticClass: "flex my-4" }, [
-                _c("input", {
-                  staticClass:
-                    "shadow appearance-none border rounded w-full py-2 px-3 mr-4 text-grey-darker",
-                  attrs: { placeholder: "Add Todo" }
-                }),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass:
-                      "flex-no-shrink p-2 border-2 rounded text-green-500 border-green-500 font-bold hover:text-white hover:bg-green-500"
-                  },
-                  [
-                    _vm._v(
-                      "\n                            Add\n                        "
-                    )
-                  ]
-                )
+              _c("div", { staticClass: "flex justify-center" }, [
+                _c("h1", { staticClass: "font-extrabold text-3xl" }, [
+                  _vm._v("Todos")
+                ])
               ]),
+              _vm._v(" "),
+              _c(
+                "form",
+                {
+                  on: {
+                    submit: function($event) {
+                      $event.preventDefault()
+                      return _vm.submit($event)
+                    }
+                  }
+                },
+                [
+                  _c("div", { staticClass: "flex my-4" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.form.title,
+                          expression: "form.title"
+                        }
+                      ],
+                      staticClass:
+                        "shadow appearance-none border rounded w-full py-2 px-3 mr-4 text-grey-darker",
+                      attrs: { placeholder: "Add Todo" },
+                      domProps: { value: _vm.form.title },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.form, "title", $event.target.value)
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass:
+                          "flex-no-shrink p-2 border-2 rounded text-green-500 border-green-500 font-bold hover:text-white hover:bg-green-500"
+                      },
+                      [
+                        _vm._v(
+                          "\n                                Add\n                            "
+                        )
+                      ]
+                    )
+                  ])
+                ]
+              ),
               _vm._v(" "),
               _vm._l(_vm.todos, function(todo) {
                 return _c("div", { key: todo.id }, [

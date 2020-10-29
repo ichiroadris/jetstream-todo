@@ -11,7 +11,7 @@ use Inertia\Inertia;
 class TodoController extends Controller
 {
     public function index() {
-        $todos = Todo::all();
+        $todos = Todo::latest()->get();
         // dd($todos);
         return Inertia::render('Main', [
             'todos' => $todos,
@@ -20,10 +20,9 @@ class TodoController extends Controller
 
     public function create(Request $req, $userid) {
         $user = User::findOrFail($userid);
-        // dd($user);
         Todo::create(
             [
-                'title' => 'hello',
+                'title' => $req->title,
                 'assigned_date' => now(),
                 'user_id' => $userid
             ]
