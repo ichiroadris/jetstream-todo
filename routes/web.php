@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 //     return Inertia\Inertia::render('Dashboard');
 // })->name('dashboard');
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/', [TodoController::class, 'index']);
+Route::middleware(['auth:sanctum', 'verified'])->get('/', [TodoController::class, 'index'])->name('dashboard');
 
 // Route::get('/', [TodoController::class, 'index']);
 

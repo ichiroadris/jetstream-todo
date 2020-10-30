@@ -22,7 +22,7 @@ class TodoController extends Controller
         Todo::create(
             [
                 'title' => $req->title,
-                'assigned_date' => now(),
+                'assigned_date' => $req->assigned_date,
                 'user_id' => $userid
             ]
         );
@@ -36,4 +36,5 @@ class TodoController extends Controller
 
         return back();
     }
+
 }

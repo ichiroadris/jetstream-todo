@@ -17,10 +17,11 @@
                         <form @submit.prevent="add">
                             <div class="flex my-4">
                                 <input
-                                    class="shadow appearance-none border rounded w-full py-2 px-3 mr-4 text-grey-darker"
+                                    class="shadow appearance-none border rounded w-full py-2 px-3 mr-2 text-grey-darker"
                                     placeholder="Add Todo"
                                     v-model="form.title"
                                 />
+                                <input type="datetime-local" name="name" id="" v-model="form.assigned_date" class="mr-2 border shadow rounded p-2">
                                 <button
                                     class="flex-no-shrink p-2 border-2 rounded text-green-500 border-green-500 font-bold hover:text-white hover:bg-green-500"
                                 >
@@ -63,7 +64,8 @@ export default {
     data() {
         return {
             form: {
-                title: null
+                title: null,
+                assigned_date: null
             }
         };
     },
@@ -72,6 +74,7 @@ export default {
     // },
     methods: {
         add() {
+            // console.log(this.form);
             this.$inertia.post('/todo/create/'+this.$page.user.id, this.form);
         },
         remove(todoid) {

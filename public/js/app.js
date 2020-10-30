@@ -3604,6 +3604,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -3613,7 +3614,8 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       form: {
-        title: null
+        title: null,
+        assigned_date: null
       }
     };
   },
@@ -3622,6 +3624,7 @@ __webpack_require__.r(__webpack_exports__);
   // },
   methods: {
     add: function add() {
+      // console.log(this.form);
       this.$inertia.post('/todo/create/' + this.$page.user.id, this.form);
     },
     remove: function remove(todoid) {
@@ -27176,7 +27179,7 @@ var render = function() {
                         }
                       ],
                       staticClass:
-                        "shadow appearance-none border rounded w-full py-2 px-3 mr-4 text-grey-darker",
+                        "shadow appearance-none border rounded w-full py-2 px-3 mr-2 text-grey-darker",
                       attrs: { placeholder: "Add Todo" },
                       domProps: { value: _vm.form.title },
                       on: {
@@ -27185,6 +27188,32 @@ var render = function() {
                             return
                           }
                           _vm.$set(_vm.form, "title", $event.target.value)
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.form.assigned_date,
+                          expression: "form.assigned_date"
+                        }
+                      ],
+                      staticClass: "mr-2 border shadow rounded p-2",
+                      attrs: { type: "datetime-local", name: "name", id: "" },
+                      domProps: { value: _vm.form.assigned_date },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.form,
+                            "assigned_date",
+                            $event.target.value
+                          )
                         }
                       }
                     }),
