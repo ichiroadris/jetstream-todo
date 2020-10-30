@@ -4,15 +4,10 @@
             <div class="py-2">
                 <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div
-                        class="bg-white overflow-hidden shadow-xl p-4 border sm:rounded-md "
+                        class="bg-white shadow-xl p-4 border sm:rounded-md "
                     >
                         <div class="flex justify-center">
-                            <h1 class="font-extrabold text-3xl">Todos</h1>
-                            <!-- <inertia-link
-                                method="post"
-                                :href="`todo/create/${$page.user.id}`"
-                                >Test</inertia-link
-                            > -->
+                            <h1 class="font-extrabold text-3xl">Your Todos</h1>
                         </div>
                         <form @submit.prevent="add">
                             <div class="flex my-4">
@@ -27,6 +22,7 @@
                                     type="datetime"
                                     use12-hour
                                     auto
+                                    required
                                     placeholder="Enter date"
                                     :min-datetime="new Date().toISOString()"
                                     v-model="form.assigned_date"
@@ -38,30 +34,9 @@
                                 </button>
                             </div>
                         </form>
-                        <div v-for="todo in todos" v-bind:key="todo.id">
-                            <div class="flex mb-4 items-center">
-                                <div class="w-full">
-                                    <p class="w-full text-gray-900">
-                                        {{ todo.title }}
-                                    </p>
-                                    <p class="text-sm text-gray-700">
-                                        Due on
-                                        <span class="font-semibold">{{
-                                            $luxon(todo.assigned_date, "short")
-                                        }}</span>
-                                    </p>
-                                </div>
-                                <button
-                                    class="flex-no-shrink p-2 ml-4 mr-2 border-2 rounded hover:text-white text-green-500 border-green-500 hover:bg-green-500"
-                                >
-                                    Done
-                                </button>
-                                <button
-                                    @click="remove(todo.id)"
-                                    class="flex-no-shrink p-2 ml-2 border-2 rounded text-red-500 border-red-500 hover:text-white hover:bg-red-500"
-                                >
-                                    Remove
-                                </button>
+                        <div class="max-h-screen overflow-auto">
+                            <div v-for="todo in todos" v-bind:key="todo.id" >
+                                <todo-item :todo="todo"></todo-item>
                             </div>
                         </div>
                     </div>
@@ -73,10 +48,12 @@
 
 <script>
 import TodoLayout from "@/Layouts/TodoLayout";
+import TodoItem from "@/Shared/TodoItem";
 
 export default {
     components: {
-        TodoLayout
+        TodoLayout,
+        TodoItem
     },
     props: ["todos"],
     data() {
@@ -85,30 +62,16 @@ export default {
                 title: null,
                 assigned_date: null
             },
-            nowTime: Date.now()
         };
     },
-    // created() {
-    //     // console.log(this.$page.user.id);
-    // },
     methods: {
-        // isFormatted(date) {
-        //     return moment(date).format("MMMM Do YYYY");
-        // },
         add() {
-            // console.log(this.);
             this.$inertia.post("/todo/create/" + this.$page.user.id, this.form);
             this.form = {
                 title: null,
                 assigned_date: null
             };
         },
-        remove(todoid) {
-            console.log(todoid);
-            this.$inertia.post("/todo/delete", {
-                todoid: todoid
-            });
-        }
     }
 };
 </script>

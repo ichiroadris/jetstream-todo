@@ -3550,31 +3550,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Layouts_TodoLayout__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/Layouts/TodoLayout */ "./resources/js/Layouts/TodoLayout.vue");
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+/* harmony import */ var _Shared_TodoItem__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/Shared/TodoItem */ "./resources/js/Shared/TodoItem.vue");
 //
 //
 //
@@ -3624,9 +3600,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
-    TodoLayout: _Layouts_TodoLayout__WEBPACK_IMPORTED_MODULE_0__["default"]
+    TodoLayout: _Layouts_TodoLayout__WEBPACK_IMPORTED_MODULE_0__["default"],
+    TodoItem: _Shared_TodoItem__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   props: ["todos"],
   data: function data() {
@@ -3634,30 +3612,16 @@ __webpack_require__.r(__webpack_exports__);
       form: {
         title: null,
         assigned_date: null
-      },
-      nowTime: Date.now()
+      }
     };
   },
-  // created() {
-  //     // console.log(this.$page.user.id);
-  // },
   methods: {
-    // isFormatted(date) {
-    //     return moment(date).format("MMMM Do YYYY");
-    // },
     add: function add() {
-      // console.log(this.);
       this.$inertia.post("/todo/create/" + this.$page.user.id, this.form);
       this.form = {
         title: null,
         assigned_date: null
       };
-    },
-    remove: function remove(todoid) {
-      console.log(todoid);
-      this.$inertia.post("/todo/delete", {
-        todoid: todoid
-      });
     }
   }
 });
@@ -5180,6 +5144,71 @@ __webpack_require__.r(__webpack_exports__);
     updateTeamName: function updateTeamName() {
       this.form.put(route('teams.update', this.team), {
         preserveScroll: true
+      });
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Shared/TodoItem.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Shared/TodoItem.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ["todo"],
+  data: function data() {
+    return {
+      data: {
+        title: "",
+        isDone: false,
+        assignedDate: ""
+      }
+    };
+  },
+  mounted: function mounted() {
+    var t = this;
+    t.data.title = t.todo.title;
+    t.data.assigned_date = t.todo.assigned_date;
+  },
+  methods: {
+    remove: function remove(todoid) {
+      this.$inertia.post("/todo/delete", {
+        todoid: todoid
       });
     }
   }
@@ -37059,14 +37088,11 @@ var render = function() {
         _c("div", { staticClass: "max-w-7xl mx-auto sm:px-6 lg:px-8" }, [
           _c(
             "div",
-            {
-              staticClass:
-                "bg-white overflow-hidden shadow-xl p-4 border sm:rounded-md "
-            },
+            { staticClass: "bg-white shadow-xl p-4 border sm:rounded-md " },
             [
               _c("div", { staticClass: "flex justify-center" }, [
                 _c("h1", { staticClass: "font-extrabold text-3xl" }, [
-                  _vm._v("Todos")
+                  _vm._v("Your Todos")
                 ])
               ]),
               _vm._v(" "),
@@ -37114,6 +37140,7 @@ var render = function() {
                           type: "datetime",
                           "use12-hour": "",
                           auto: "",
+                          required: "",
                           placeholder: "Enter date",
                           "min-datetime": new Date().toISOString()
                         },
@@ -37144,65 +37171,20 @@ var render = function() {
                 ]
               ),
               _vm._v(" "),
-              _vm._l(_vm.todos, function(todo) {
-                return _c("div", { key: todo.id }, [
-                  _c("div", { staticClass: "flex mb-4 items-center" }, [
-                    _c("div", { staticClass: "w-full" }, [
-                      _c("p", { staticClass: "w-full text-gray-900" }, [
-                        _vm._v(
-                          "\n                                    " +
-                            _vm._s(todo.title) +
-                            "\n                                "
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("p", { staticClass: "text-sm text-gray-700" }, [
-                        _vm._v(
-                          "\n                                    Due on\n                                    "
-                        ),
-                        _c("span", { staticClass: "font-semibold" }, [
-                          _vm._v(
-                            _vm._s(_vm.$luxon(todo.assigned_date, "short"))
-                          )
-                        ])
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "button",
-                      {
-                        staticClass:
-                          "flex-no-shrink p-2 ml-4 mr-2 border-2 rounded hover:text-white text-green-500 border-green-500 hover:bg-green-500"
-                      },
-                      [
-                        _vm._v(
-                          "\n                                Done\n                            "
-                        )
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "button",
-                      {
-                        staticClass:
-                          "flex-no-shrink p-2 ml-2 border-2 rounded text-red-500 border-red-500 hover:text-white hover:bg-red-500",
-                        on: {
-                          click: function($event) {
-                            return _vm.remove(todo.id)
-                          }
-                        }
-                      },
-                      [
-                        _vm._v(
-                          "\n                                Remove\n                            "
-                        )
-                      ]
-                    )
-                  ])
-                ])
-              })
-            ],
-            2
+              _c(
+                "div",
+                { staticClass: "max-h-screen overflow-auto" },
+                _vm._l(_vm.todos, function(todo) {
+                  return _c(
+                    "div",
+                    { key: todo.id },
+                    [_c("todo-item", { attrs: { todo: todo } })],
+                    1
+                  )
+                }),
+                0
+              )
+            ]
           )
         ])
       ])
@@ -39793,6 +39775,70 @@ var render = function() {
       true
     )
   })
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Shared/TodoItem.vue?vue&type=template&id=15c5a955&scoped=true&":
+/*!*******************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Shared/TodoItem.vue?vue&type=template&id=15c5a955&scoped=true& ***!
+  \*******************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c("div", { staticClass: "flex mb-4 items-center" }, [
+      _c("div", { staticClass: "w-full" }, [
+        _c("p", { staticClass: "w-full text-gray-900" }, [
+          _vm._v(
+            "\n                " + _vm._s(_vm.todo.title) + "\n            "
+          )
+        ]),
+        _vm._v(" "),
+        _c("p", { staticClass: "text-sm text-gray-700" }, [
+          _vm._v("\n                Due on\n                "),
+          _c("span", { staticClass: "font-semibold" }, [
+            _vm._v(_vm._s(_vm.$luxon(_vm.todo.assigned_date, "short")))
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass:
+            "flex-no-shrink p-2 ml-4 mr-2 border-2 rounded hover:text-white text-green-500 border-green-500 hover:bg-green-500"
+        },
+        [_vm._v("\n            Done\n        ")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass:
+            "flex-no-shrink p-2 ml-2 mr-2 border-2 rounded text-red-500 border-red-500 hover:text-white hover:bg-red-500",
+          on: {
+            click: function($event) {
+              return _vm.remove(_vm.todo.id)
+            }
+          }
+        },
+        [_vm._v("\n            Remove\n        ")]
+      )
+    ])
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -54980,6 +55026,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_UpdateTeamNameForm_vue_vue_type_template_id_8302acd2___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_UpdateTeamNameForm_vue_vue_type_template_id_8302acd2___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/Shared/TodoItem.vue":
+/*!******************************************!*\
+  !*** ./resources/js/Shared/TodoItem.vue ***!
+  \******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _TodoItem_vue_vue_type_template_id_15c5a955_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./TodoItem.vue?vue&type=template&id=15c5a955&scoped=true& */ "./resources/js/Shared/TodoItem.vue?vue&type=template&id=15c5a955&scoped=true&");
+/* harmony import */ var _TodoItem_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./TodoItem.vue?vue&type=script&lang=js& */ "./resources/js/Shared/TodoItem.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _TodoItem_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _TodoItem_vue_vue_type_template_id_15c5a955_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _TodoItem_vue_vue_type_template_id_15c5a955_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "15c5a955",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/Shared/TodoItem.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/Shared/TodoItem.vue?vue&type=script&lang=js&":
+/*!*******************************************************************!*\
+  !*** ./resources/js/Shared/TodoItem.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_TodoItem_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./TodoItem.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Shared/TodoItem.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_TodoItem_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/Shared/TodoItem.vue?vue&type=template&id=15c5a955&scoped=true&":
+/*!*************************************************************************************!*\
+  !*** ./resources/js/Shared/TodoItem.vue?vue&type=template&id=15c5a955&scoped=true& ***!
+  \*************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_TodoItem_vue_vue_type_template_id_15c5a955_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./TodoItem.vue?vue&type=template&id=15c5a955&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Shared/TodoItem.vue?vue&type=template&id=15c5a955&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_TodoItem_vue_vue_type_template_id_15c5a955_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_TodoItem_vue_vue_type_template_id_15c5a955_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

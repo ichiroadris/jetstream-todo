@@ -11,7 +11,7 @@ use Inertia\Inertia;
 class TodoController extends Controller
 {
     public function index() {
-        $todos = Todo::latest()->get();
+        $todos = Todo::where('user_id', auth()->user()->id)->latest()->get();
         // dd($todos);
         return Inertia::render('Main', [
             'todos' => $todos,
@@ -28,6 +28,11 @@ class TodoController extends Controller
         );
 
         return back();
+    }
+
+    public function update(Request $req) {
+        $todo = Todo::find($req->todoid);
+
     }
 
     public function destroy(Request $req) {
