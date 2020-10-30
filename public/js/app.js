@@ -3610,7 +3610,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 
 
@@ -42261,17 +42260,12 @@ var render = function() {
                     attrs: { autocomplete: "off", placeholder: "Search todo" },
                     domProps: { value: _vm.data.search },
                     on: {
-                      input: [
-                        function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(_vm.data, "search", $event.target.value)
-                        },
-                        function($event) {
-                          return _vm.$emit("input", $event.target.value)
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
                         }
-                      ]
+                        _vm.$set(_vm.data, "search", $event.target.value)
+                      }
                     }
                   })
                 ]
@@ -42321,7 +42315,6 @@ var render = function() {
                           type: "datetime",
                           "use12-hour": "",
                           auto: "",
-                          required: "",
                           placeholder: "Enter date",
                           "min-datetime": new Date().toISOString()
                         },
@@ -44999,12 +44992,14 @@ var render = function() {
             )
           ]),
           _vm._v(" "),
-          _c("p", { staticClass: "text-sm " }, [
-            _vm._v("\n                Due on\n                "),
-            _c("span", { staticClass: "font-semibold" }, [
-              _vm._v(_vm._s(_vm.$luxon(_vm.todo.assigned_date, "short")))
-            ])
-          ])
+          _vm.todo.assigned_date
+            ? _c("p", { staticClass: "text-sm " }, [
+                _vm._v("\n                Due on\n                "),
+                _c("span", { staticClass: "font-semibold" }, [
+                  _vm._v(_vm._s(_vm.$luxon(_vm.todo.assigned_date, "short")))
+                ])
+              ])
+            : _vm._e()
         ]
       ),
       _vm._v(" "),

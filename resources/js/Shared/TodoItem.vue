@@ -12,7 +12,7 @@
                 <p class="w-full ">
                     {{ todo.title }}
                 </p>
-                <p class="text-sm ">
+                <p class="text-sm " v-if="todo.assigned_date">
                     Due on
                     <span class="font-semibold">{{
                         $luxon(todo.assigned_date, "short")

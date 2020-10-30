@@ -11,7 +11,7 @@
                                 autocomplete="off"
                                 placeholder="Search todo"
                                 v-model="data.search"
-                                @input="$emit('input', $event.target.value)"
+
                             />
                         </div>
                         <form @submit.prevent="add">
@@ -27,7 +27,6 @@
                                     type="datetime"
                                     use12-hour
                                     auto
-                                    required
                                     placeholder="Enter date"
                                     :min-datetime="new Date().toISOString()"
                                     v-model="form.assigned_date"
