@@ -26,5 +26,11 @@
         "tailwindcss": "^1.8.0",
         "vue": "^2.5.17",
         "vue-template-compiler": "^2.6.10"
+    },
+    "dependencies": {
+        "luxon": "^1.25.0",
+        "vue-datetime": "^1.0.0-beta.14",
+        "vue-luxon": "^0.9.0",
+        "weekstart": "^1.0.1"
     }
 }

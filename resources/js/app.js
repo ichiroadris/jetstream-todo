@@ -5,7 +5,13 @@ import Vue from 'vue';
 import { InertiaApp } from '@inertiajs/inertia-vue';
 import { InertiaForm } from 'laravel-jetstream';
 import PortalVue from 'portal-vue';
+import { Datetime } from 'vue-datetime'
+import 'vue-datetime/dist/vue-datetime.css'
+import VueLuxon from "vue-luxon";
 
+Vue.use(VueLuxon);
+Vue.use(Datetime);
+Vue.component('datetime', Datetime);
 Vue.mixin({ methods: { route } });
 Vue.use(InertiaApp);
 Vue.use(InertiaForm);
@@ -22,3 +28,4 @@ new Vue({
             },
         }),
 }).$mount(app);
+

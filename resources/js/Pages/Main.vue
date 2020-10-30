@@ -18,10 +18,19 @@
                             <div class="flex my-4">
                                 <input
                                     class="shadow appearance-none border rounded w-full py-2 px-3 mr-2 text-grey-darker"
+                                    required
                                     placeholder="Add Todo"
                                     v-model="form.title"
                                 />
-                                <input type="datetime-local" name="name" id="" v-model="form.assigned_date" class="mr-2 border shadow rounded p-2">
+                                <datetime
+                                    class="border shadow rounded mr-2 p-2"
+                                    type="datetime"
+                                    use12-hour
+                                    auto
+                                    placeholder="Enter date"
+                                    :min-datetime="new Date().toISOString()"
+                                    v-model="form.assigned_date"
+                                ></datetime>
                                 <button
                                     class="flex-no-shrink p-2 border-2 rounded text-green-500 border-green-500 font-bold hover:text-white hover:bg-green-500"
                                 >
@@ -35,14 +44,20 @@
                                     <p class="w-full text-gray-900">
                                         {{ todo.title }}
                                     </p>
-                                    <p class="text-sm text-gray-700">Due on <span class="font-semibold">{{todo.assigned_date}}</span></p>
+                                    <p class="text-sm text-gray-700">
+                                        Due on
+                                        <span class="font-semibold">{{
+                                            $luxon(todo.assigned_date, "short")
+                                        }}</span>
+                                    </p>
                                 </div>
                                 <button
                                     class="flex-no-shrink p-2 ml-4 mr-2 border-2 rounded hover:text-white text-green-500 border-green-500 hover:bg-green-500"
                                 >
                                     Done
                                 </button>
-                                <button @click="remove(todo.id)"
+                                <button
+                                    @click="remove(todo.id)"
                                     class="flex-no-shrink p-2 ml-2 border-2 rounded text-red-500 border-red-500 hover:text-white hover:bg-red-500"
                                 >
                                     Remove
@@ -69,22 +84,30 @@ export default {
             form: {
                 title: null,
                 assigned_date: null
-            }
+            },
+            nowTime: Date.now()
         };
     },
     // created() {
     //     // console.log(this.$page.user.id);
     // },
     methods: {
+        // isFormatted(date) {
+        //     return moment(date).format("MMMM Do YYYY");
+        // },
         add() {
-            // console.log(this.form);
-            this.$inertia.post('/todo/create/'+this.$page.user.id, this.form);
+            // console.log(this.);
+            this.$inertia.post("/todo/create/" + this.$page.user.id, this.form);
+            this.form = {
+                title: null,
+                assigned_date: null
+            };
         },
         remove(todoid) {
             console.log(todoid);
-            this.$inertia.post('/todo/delete', {
+            this.$inertia.post("/todo/delete", {
                 todoid: todoid
-            })
+            });
         }
     }
 };
