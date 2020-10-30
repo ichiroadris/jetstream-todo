@@ -31,9 +31,12 @@
                         </form>
                         <div v-for="todo in todos" v-bind:key="todo.id">
                             <div class="flex mb-4 items-center">
-                                <p class="w-full text-grey-900">
-                                    {{ todo.title }}
-                                </p>
+                                <div class="w-full">
+                                    <p class="w-full text-gray-900">
+                                        {{ todo.title }}
+                                    </p>
+                                    <p class="text-sm text-gray-700">Due on <span class="font-semibold">{{todo.assigned_date}}</span></p>
+                                </div>
                                 <button
                                     class="flex-no-shrink p-2 ml-4 mr-2 border-2 rounded hover:text-white text-green-500 border-green-500 hover:bg-green-500"
                                 >

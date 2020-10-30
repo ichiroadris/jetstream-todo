@@ -3605,6 +3605,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -27237,12 +27240,21 @@ var render = function() {
               _vm._l(_vm.todos, function(todo) {
                 return _c("div", { key: todo.id }, [
                   _c("div", { staticClass: "flex mb-4 items-center" }, [
-                    _c("p", { staticClass: "w-full text-grey-900" }, [
-                      _vm._v(
-                        "\n                                " +
-                          _vm._s(todo.title) +
-                          "\n                            "
-                      )
+                    _c("div", { staticClass: "w-full" }, [
+                      _c("p", { staticClass: "w-full text-gray-900" }, [
+                        _vm._v(
+                          "\n                                    " +
+                            _vm._s(todo.title) +
+                            "\n                                "
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("p", { staticClass: "text-sm text-gray-700" }, [
+                        _vm._v("Due on "),
+                        _c("span", { staticClass: "font-semibold" }, [
+                          _vm._v(_vm._s(todo.assigned_date))
+                        ])
+                      ])
                     ]),
                     _vm._v(" "),
                     _c(
