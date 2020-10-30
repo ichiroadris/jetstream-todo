@@ -19,11 +19,17 @@
                     }}</span>
                 </p>
             </div>
-            <button
+            <button v-if="!(todo.isDone)"
                 @click="check()"
                 class="flex-no-shrink p-2 ml-4 mr-2 border-2 rounded hover:text-white text-green-500 border-green-500 hover:bg-green-500"
             >
                 Done
+            </button>
+            <button v-else
+                @click="check()"
+                class=" w-40 flex-no-shrink p-2 ml-4 mr-2 border-2 rounded hover:text-white text-gray-800 border-gray-800 hover:bg-gray-800"
+            >
+                Not Done
             </button>
             <button
                 @click="remove()"

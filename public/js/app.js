@@ -3599,6 +3599,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -5160,6 +5161,12 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -37184,19 +37191,22 @@ var render = function() {
                 ]
               ),
               _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "max-h-screen overflow-auto" },
-                _vm._l(_vm.todos, function(todo) {
-                  return _c(
-                    "div",
-                    { key: todo.id },
-                    [_c("todo-item", { attrs: { todo: todo } })],
-                    1
-                  )
-                }),
-                0
-              )
+              _c("div", { staticClass: "max-h-screen overflow-auto" }, [
+                _vm.todos.length
+                  ? _c(
+                      "div",
+                      _vm._l(_vm.todos, function(todo) {
+                        return _c(
+                          "div",
+                          { key: todo.id },
+                          [_c("todo-item", { attrs: { todo: todo } })],
+                          1
+                        )
+                      }),
+                      0
+                    )
+                  : _c("div", [_vm._v("No todo yet")])
+              ])
             ]
           )
         ])
@@ -39837,19 +39847,33 @@ var render = function() {
         ]
       ),
       _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass:
-            "flex-no-shrink p-2 ml-4 mr-2 border-2 rounded hover:text-white text-green-500 border-green-500 hover:bg-green-500",
-          on: {
-            click: function($event) {
-              return _vm.check()
-            }
-          }
-        },
-        [_vm._v("\n            Done\n        ")]
-      ),
+      !_vm.todo.isDone
+        ? _c(
+            "button",
+            {
+              staticClass:
+                "flex-no-shrink p-2 ml-4 mr-2 border-2 rounded hover:text-white text-green-500 border-green-500 hover:bg-green-500",
+              on: {
+                click: function($event) {
+                  return _vm.check()
+                }
+              }
+            },
+            [_vm._v("\n            Done\n        ")]
+          )
+        : _c(
+            "button",
+            {
+              staticClass:
+                " w-40 flex-no-shrink p-2 ml-4 mr-2 border-2 rounded hover:text-white text-gray-800 border-gray-800 hover:bg-gray-800",
+              on: {
+                click: function($event) {
+                  return _vm.check()
+                }
+              }
+            },
+            [_vm._v("\n            Not Done\n        ")]
+          ),
       _vm._v(" "),
       _c(
         "button",

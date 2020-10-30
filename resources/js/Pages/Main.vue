@@ -3,9 +3,7 @@
         <div>
             <div class="py-2">
                 <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <div
-                        class="bg-white shadow-xl p-4 border sm:rounded-md "
-                    >
+                    <div class="bg-white shadow-xl p-4 border sm:rounded-md ">
                         <div class="flex justify-center">
                             <h1 class="font-extrabold text-3xl">Your Todos</h1>
                         </div>
@@ -35,9 +33,12 @@
                             </div>
                         </form>
                         <div class="max-h-screen overflow-auto">
-                            <div v-for="todo in todos" v-bind:key="todo.id" >
-                                <todo-item :todo="todo"></todo-item>
+                            <div v-if="todos.length">
+                                <div v-for="todo in todos" v-bind:key="todo.id">
+                                    <todo-item :todo="todo"></todo-item>
+                                </div>
                             </div>
+                            <div v-else>No todo yet</div>
                         </div>
                     </div>
                 </div>
@@ -61,7 +62,7 @@ export default {
             form: {
                 title: null,
                 assigned_date: null
-            },
+            }
         };
     },
     methods: {
@@ -71,7 +72,7 @@ export default {
                 title: null,
                 assigned_date: null
             };
-        },
+        }
     }
 };
 </script>
