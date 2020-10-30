@@ -21,19 +21,19 @@
             </div>
             <button v-if="!(todo.isDone)"
                 @click="check()"
-                class="flex-no-shrink p-2 ml-4 mr-2 border-2 rounded hover:text-white text-green-500 border-green-500 hover:bg-green-500"
+                class="flex-no-shrink p-2 ml-4 mr-2 border-2 rounded hover:text-white text-green-500 border-green-500 hover:bg-green-500 focus:outline-none  focus:shadow-outline-green"
             >
                 Done
             </button>
             <button v-else
                 @click="check()"
-                class=" w-40 flex-no-shrink p-2 ml-4 mr-2 border-2 rounded hover:text-white text-gray-800 border-gray-800 hover:bg-gray-800"
+                class=" w-40 flex-no-shrink p-2 ml-4 mr-2 border-2 rounded hover:text-white text-gray-800 border-gray-800 hover:bg-gray-800 focus:outline-none  focus:shadow-outline-gray"
             >
                 Not Done
             </button>
             <button
                 @click="remove()"
-                class="flex-no-shrink p-2 ml-2 mr-2 border-2 rounded text-red-500 border-red-500 hover:text-white hover:bg-red-500"
+                class="flex-no-shrink p-2 ml-2 mr-2 border-2 rounded text-red-500 border-red-500 hover:text-white focus:outline-none  focus:shadow-outline-red hover:bg-red-500"
             >
                 Remove
             </button>
@@ -61,7 +61,6 @@ export default {
     },
     methods: {
         remove() {
-            // console.log(this.todo)
             this.$inertia.post("/todo/delete", this.todo);
         },
         check() {

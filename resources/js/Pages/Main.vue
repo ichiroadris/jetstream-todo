@@ -4,8 +4,15 @@
             <div class="py-2">
                 <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div class="bg-white shadow-xl p-4 border sm:rounded-md ">
-                        <div class="flex justify-center">
+                        <div class="flex justify-between w-full items-center">
                             <h1 class="font-extrabold text-3xl">Your Todos</h1>
+                            <input
+                                class="appearance-none border-b rounded py-2 px-3 mr-2 text-grey-darker outline-none"
+                                autocomplete="off"
+                                placeholder="Search todo"
+                                v-model="data.search"
+                                @input="$emit('input', $event.target.value)"
+                            />
                         </div>
                         <form @submit.prevent="add">
                             <div class="flex my-4">
@@ -26,7 +33,7 @@
                                     v-model="form.assigned_date"
                                 ></datetime>
                                 <button
-                                    class="flex-no-shrink p-2 border-2 rounded text-green-500 border-green-500 font-bold hover:text-white hover:bg-green-500"
+                                    class="flex-no-shrink p-2 border-2 rounded text-green-500 border-green-500 font-bold hover:text-white hover:bg-green-500 focus:outline-none  focus:shadow-outline-green"
                                 >
                                     Add
                                 </button>
@@ -50,6 +57,8 @@
 <script>
 import TodoLayout from "@/Layouts/TodoLayout";
 import TodoItem from "@/Shared/TodoItem";
+import throttle from "lodash/throttle";
+import pickBy from "lodash/pickBy";
 
 export default {
     components: {
@@ -61,7 +70,10 @@ export default {
         return {
             form: {
                 title: null,
-                assigned_date: null
+                assigned_date: null,
+            },
+            data: {
+                search: ""
             }
         };
     },
@@ -72,6 +84,22 @@ export default {
                 title: null,
                 assigned_date: null
             };
+        }
+    },
+    watch: {
+        data: {
+            handler: throttle(function() {
+                let query = pickBy(this.data);
+                this.$inertia.replace(
+                    this.route(
+                        "dashboard",
+                        Object.keys(query).length
+                            ? query
+                            : {  }
+                    )
+                );
+            }, 150),
+            deep: true
         }
     }
 };

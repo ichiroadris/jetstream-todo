@@ -5,14 +5,14 @@ namespace App\Http\Controllers;
 use App\Models\Todo;
 use App\Models\User;
 use Illuminate\Http\Request;
+// use Illuminate\Support\Facades\Request;
 use Inertia\Inertia;
 
 
 class TodoController extends Controller
 {
-    public function index() {
-        $todos = Todo::where('user_id', auth()->user()->id)->latest()->get();
-        // dd($todos);
+    public function index(Request $req) {
+        $todos = Todo::where('user_id', auth()->user()->id)->latest()->where('title', 'like', '%' . $req->query('search') . '%')->get();
         return Inertia::render('Main', [
             'todos' => $todos,
         ]);
