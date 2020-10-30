@@ -1,11 +1,18 @@
 <template>
     <div>
         <div class="flex mb-4 items-center">
-            <div class="w-full">
-                <p class="w-full text-gray-900">
+            <div
+                class="w-full"
+                :class="
+                    data.isDone
+                        ? 'line-through text-green-500'
+                        : 'text-gray-900'
+                "
+            >
+                <p class="w-full ">
                     {{ todo.title }}
                 </p>
-                <p class="text-sm text-gray-700">
+                <p class="text-sm ">
                     Due on
                     <span class="font-semibold">{{
                         $luxon(todo.assigned_date, "short")
@@ -13,12 +20,13 @@
                 </p>
             </div>
             <button
+                @click="check()"
                 class="flex-no-shrink p-2 ml-4 mr-2 border-2 rounded hover:text-white text-green-500 border-green-500 hover:bg-green-500"
             >
                 Done
             </button>
             <button
-                @click="remove(todo.id)"
+                @click="remove()"
                 class="flex-no-shrink p-2 ml-2 mr-2 border-2 rounded text-red-500 border-red-500 hover:text-white hover:bg-red-500"
             >
                 Remove
@@ -37,19 +45,23 @@ export default {
                 isDone: false,
                 assignedDate: ""
             }
-        }
+        };
     },
     mounted() {
         const t = this;
         t.data.title = t.todo.title;
+        t.data.isDone = t.todo.isDone;
         t.data.assigned_date = t.todo.assigned_date;
-
     },
     methods: {
-        remove(todoid) {
-            this.$inertia.post("/todo/delete", {
-                todoid: todoid
-            });
+        remove() {
+            // console.log(this.todo)
+            this.$inertia.post("/todo/delete", this.todo);
+        },
+        check() {
+            const t = this;
+            t.data.isDone = !t.data.isDone;
+            t.$inertia.post("/todo/toggle", t.todo);
         }
     }
 };

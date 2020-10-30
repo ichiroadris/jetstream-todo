@@ -5189,6 +5189,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["todo"],
   data: function data() {
@@ -5203,13 +5211,18 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     var t = this;
     t.data.title = t.todo.title;
+    t.data.isDone = t.todo.isDone;
     t.data.assigned_date = t.todo.assigned_date;
   },
   methods: {
-    remove: function remove(todoid) {
-      this.$inertia.post("/todo/delete", {
-        todoid: todoid
-      });
+    remove: function remove() {
+      // console.log(this.todo)
+      this.$inertia.post("/todo/delete", this.todo);
+    },
+    check: function check() {
+      var t = this;
+      t.data.isDone = !t.data.isDone;
+      t.$inertia.post("/todo/toggle", t.todo);
     }
   }
 });
@@ -39800,26 +39813,40 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", [
     _c("div", { staticClass: "flex mb-4 items-center" }, [
-      _c("div", { staticClass: "w-full" }, [
-        _c("p", { staticClass: "w-full text-gray-900" }, [
-          _vm._v(
-            "\n                " + _vm._s(_vm.todo.title) + "\n            "
-          )
-        ]),
-        _vm._v(" "),
-        _c("p", { staticClass: "text-sm text-gray-700" }, [
-          _vm._v("\n                Due on\n                "),
-          _c("span", { staticClass: "font-semibold" }, [
-            _vm._v(_vm._s(_vm.$luxon(_vm.todo.assigned_date, "short")))
+      _c(
+        "div",
+        {
+          staticClass: "w-full",
+          class: _vm.data.isDone
+            ? "line-through text-green-500"
+            : "text-gray-900"
+        },
+        [
+          _c("p", { staticClass: "w-full " }, [
+            _vm._v(
+              "\n                " + _vm._s(_vm.todo.title) + "\n            "
+            )
+          ]),
+          _vm._v(" "),
+          _c("p", { staticClass: "text-sm " }, [
+            _vm._v("\n                Due on\n                "),
+            _c("span", { staticClass: "font-semibold" }, [
+              _vm._v(_vm._s(_vm.$luxon(_vm.todo.assigned_date, "short")))
+            ])
           ])
-        ])
-      ]),
+        ]
+      ),
       _vm._v(" "),
       _c(
         "button",
         {
           staticClass:
-            "flex-no-shrink p-2 ml-4 mr-2 border-2 rounded hover:text-white text-green-500 border-green-500 hover:bg-green-500"
+            "flex-no-shrink p-2 ml-4 mr-2 border-2 rounded hover:text-white text-green-500 border-green-500 hover:bg-green-500",
+          on: {
+            click: function($event) {
+              return _vm.check()
+            }
+          }
         },
         [_vm._v("\n            Done\n        ")]
       ),
@@ -39831,7 +39858,7 @@ var render = function() {
             "flex-no-shrink p-2 ml-2 mr-2 border-2 rounded text-red-500 border-red-500 hover:text-white hover:bg-red-500",
           on: {
             click: function($event) {
-              return _vm.remove(_vm.todo.id)
+              return _vm.remove()
             }
           }
         },

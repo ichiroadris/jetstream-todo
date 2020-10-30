@@ -30,13 +30,17 @@ class TodoController extends Controller
         return back();
     }
 
-    public function update(Request $req) {
-        $todo = Todo::find($req->todoid);
+    public function toggle(Request $req) {
+        $todo = Todo::find($req->id);
+        $todo->update([
+            'isDone' => !$req->isDone
+        ]);
 
+        return back();
     }
 
     public function destroy(Request $req) {
-        $todo = Todo::find($req->todoid);
+        $todo = Todo::find($req->id);
         $todo->delete();
 
         return back();
